@@ -6,8 +6,8 @@ A module for logging and displaying statistics for OXID eShop Community and Prof
 Installation
 ------------
 
-- Make a new folder "statistics" in the 'modules/oe/' directory of your shop installation. Download https://github.com/kermie/statistics_module/archive/master.zip and unpack it into this folder. 'OR'
-- Git glone the module to your OXID eShop 'modules/oe/' directory:
+- Make a new folder "statistics" in the **modules/oe/** directory of your shop installation. Download https://github.com/kermie/statistics_module/archive/master.zip and unpack it into this folder. **OR**
+- Git clone the module to your OXID eShop **modules/oe/** directory:
 
   .. code:: bash
 
