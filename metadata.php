@@ -44,7 +44,6 @@ $aModule = array(
     'version'     => '1.0.0',
     'author'      => 'OXID eSales AG',
     'url'         => 'http://www.oxid-esales.com/',
-    'email'       => 'info@oxid-esales.com',
     'extend'      => array(
         'oxShopControl' => 'oe/statistics/core/oestatisticsoxshopcontrol'
     ),
