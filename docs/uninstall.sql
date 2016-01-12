@@ -1,0 +1,1 @@
+-- OE Statistics module uninstall SQL file --

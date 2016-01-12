@@ -1,0 +1,110 @@
+a {
+    font-size: 9pt;
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #000000;
+}
+
+body {
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    background-color: #FFFFFF;
+}
+
+.pageheadline1 {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    height: 38px;
+    background-color: #333333;
+    vertical-align: bottom;
+}
+
+.pageheadline2 {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    height: 17px;
+    background-color: #C1BFBF;
+    text-align: left;
+    padding-left: 5px;
+    border: 1px #000000;
+    border-style: none none solid none;
+}
+
+.pageheadgraphic {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    border: 0px;
+    border-style: solid solid solid solid;
+    padding-left: 10px;
+}
+
+.pageheadlinkupperback {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: #333333;
+    text-align: right;
+    padding-right: 5px;
+}
+
+.pageheadlinkupper {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 7pt;
+    color: #FFFFFF;
+}
+
+.pageheadlinkbottom {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 7pt;
+    color: #2A2A2A;
+    font-weight: bold;
+    text-align: right;
+}
+
+.report_edittext {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #000000;
+    font-weight: normal;
+    padding-left: 10px;
+}
+
+.report_searchstrings_td {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+}
+
+.report_searchstrings_table {
+    border-right: 4px solid #666666;
+    border-bottom: 4px solid #666666;
+    background-color: #e7ecf0;
+}
+
+.report_searchstrings_scale {
+    border-right: 1px solid #000000;
+    height: 30px;
+    width: 80px;
+    text-align: right;
+}
+
+.report_searchstrings_scale_empty_right {
+    width: 80px;
+}
+
+.report_searchstrings_scale_aligns_left {
+    text-align: left;
+    border-bottom: 1px solid #000000;
+}
+
+.report_searchstrings_scale_aligns_center {
+    text-align: center;
+    border-bottom: 1px solid #000000;
+}
+
+.report_searchstrings_scale_aligns_right {
+    text-align: right;
+    border-bottom: 1px solid #000000;
+}
