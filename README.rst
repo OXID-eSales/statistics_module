@@ -1,43 +1,46 @@
 OE Statistics Module
 ====================
 
-Module for logging and displaying shop statistics (OXID eShop CE/PE only).
+A module for logging and displaying statistics for OXID eShop Community and Professional Edition (formerly part of the core)
 
-Setup
------
+Installation
+------------
 
-- Clone module to your eShop `modules/oe/` directory:
+- Make a new folder "statistics" in the **modules/oe/** directory of your shop installation. Download https://github.com/kermie/statistics_module/archive/master.zip and unpack it into this folder. **OR**
+- Git clone the module to your OXID eShop **modules/oe/** directory:
 
   .. code:: bash
 
      git clone https://github.com/OXID-eSales/oestatistics_module.git statistics
-- Activate the module in administration area.
-- Configure module for collecting the information for reports generation.
+- Activate the module in administration panel
+- Configure the module for collecting information for the generation of reports
 
 Collecting information
 ----------------------
 
-At the module settings page "Activate Logging for Statistics" checkbox can be found. Whenever it is checked,
-module will collect information about shop actions like viewed product and category, purchases, searches and so on.
-Later on from this information statistics report can be generated.
+At the module settings page, please find the option "Activate Logging for Statistics". If activated, the module now logs information about actions like visited products and categories, orders, on-page searches etc. Out of this information, statistic reports can be generated.
 
 Generating reports
 ------------------
 
-When module is active new navigation options should appear - "Statistics -> Stats & Log-Maint.".
-At this page all created reports can be seen and new ones can be created.
+If the module is active, a new navigation point will appear in admin panel: "Statistics -> Stats & Log-Maint.". Please create and view your statistic reports here.
 
 .. image:: https://cloud.githubusercontent.com/assets/3593099/12267730/3eab94b6-b952-11e5-86ea-03f5877decbc.png
 
-To create new report:
- * Enter report name and save it
- * Then assign fields, which should be added to report with "Assign Reports"
- * Choose time frame for which report should be generated
- * Press "Generate Report" button
+Creating a new report:
+ * Enter the report name and save it
+ * Assign areas which should be added to the report by using "Assign Reports"
+ * Choose the time frame for the report to be generated
+ * Press the "Generate Report" button
 
-You should now have a new window opened with generated report in it:
+A new page should appear now with the generated report in it:
 
 .. image:: https://cloud.githubusercontent.com/assets/3593099/12267735/4179b3ee-b952-11e5-8ad1-58b104d61390.png
+
+Uninstall the module
+--------------------
+
+- Disable the module in administration panel and/or delete the module folder
 
 License
 -------

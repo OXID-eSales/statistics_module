@@ -33,18 +33,17 @@ $sMetadataVersion = '1.1';
 $aModule = array(
     'id'          => 'oestatistics',
     'title'       => array(
-        'de' => '[TR - OE Statistics]',
+        'de' => 'OE Statistiken',
         'en' => 'OE Statistics',
     ),
     'description' => array(
-        'de' => '[TR - OE Statistics Module]',
-        'en' => 'OE Statistics Module',
+        'de' => 'Ein Modul für das Loggen und die Ausgabe von Statistiken in OXID eShop Community und Professional Edition',
+        'en' => 'A module for logging and displaying statistics for OXID eShop Community and Professional Edition',
     ),
     'thumbnail'   => 'out/pictures/picture.png',
     'version'     => '1.0.0',
     'author'      => 'OXID eSales AG',
     'url'         => 'http://www.oxid-esales.com/',
-    'email'       => 'info@oxid-esales.com',
     'extend'      => array(
         'oxShopControl' => 'oe/statistics/core/oestatisticsoxshopcontrol'
     ),
