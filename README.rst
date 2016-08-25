@@ -3,6 +3,11 @@ OE Statistics Module
 
 A module for logging and displaying statistics for OXID eShop Community and Professional Edition (formerly part of the core)
 
+Requirements
+------------
+
+* OXID eShop v6.*
+
 Installation
 ------------
 
