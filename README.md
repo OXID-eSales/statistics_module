@@ -1,36 +1,53 @@
-OE Statistics Module
-====================
+# OE Statistics Module
+
+## Description
 
 A module for logging and displaying statistics for OXID eShop Community and Professional Edition (formerly part of the core)
 
-Requirements
-------------
+### Requirements
 
 * OXID eShop v6.*
 
-Installation
-------------
+## Installation
 
-- Make a new folder "statistics" in the **modules/oe/** directory of your shop installation. Download https://github.com/OXID-eSales/statistics_module/archive/master.zip and unpack it into this folder. **OR**
-- Git clone the module to your OXID eShop **modules/oe/** directory:
+Please proceed with one of the following ways to install the module:
 
-  .. code:: bash
+### Module installation via composer
 
-     git clone https://github.com/OXID-eSales/oestatistics_module.git statistics
-- Activate the module in administration panel
-- Configure the module for collecting information for the generation of reports
+In order to install the module via composer, run the following commands in commandline of your shop base directory 
+(where the shop's composer.json file resides).
 
-Collecting information
-----------------------
+```
+composer config repositories.oxid-esales/statistics-module vcs https://github.com/OXIDprojects/statistics-module
+composer require oxid-esales/statistics-module:dev-master
+```
+
+### Module installation via repository cloning
+
+Clone the module to your OXID eShop **modules/oe/** directory:
+```
+git clone https://github.com/OXIDprojects/statistics-module.git statistics
+```
+
+### Module installation from zip package
+
+* Make a new folder "statistics" in the **modules/oe/ directory** of your shop installation. 
+* Download the https://github.com/OXIDprojects/statistics-module/archive/master.zip file and unpack it into the created folder.
+
+## Activate Module
+
+- Activate the module in the administration panel.
+- Configure the module for collecting information for the generation of reports.
+
+## Collecting information
 
 At the module settings page, please find the option "Activate Logging for Statistics". If activated, the module now logs information about actions like visited products and categories, orders, on-page searches etc. Out of this information, statistic reports can be generated.
 
-Generating reports
-------------------
+## Generating reports
 
 If the module is active, a new navigation point will appear in admin panel: "Statistics -> Stats & Log-Maint.". Please create and view your statistic reports here.
 
-.. image:: https://cloud.githubusercontent.com/assets/3593099/12267730/3eab94b6-b952-11e5-86ea-03f5877decbc.png
+![reports_list](https://cloud.githubusercontent.com/assets/3593099/12267730/3eab94b6-b952-11e5-86ea-03f5877decbc.png)
 
 Creating a new report:
  * Enter the report name and save it
@@ -40,15 +57,13 @@ Creating a new report:
 
 A new page should appear now with the generated report in it:
 
-.. image:: https://cloud.githubusercontent.com/assets/3593099/12267735/4179b3ee-b952-11e5-8ad1-58b104d61390.png
+![one_report](https://cloud.githubusercontent.com/assets/3593099/12267735/4179b3ee-b952-11e5-8ad1-58b104d61390.png)
 
-Uninstall the module
---------------------
+## Uninstall the module
 
-- Disable the module in administration panel and/or delete the module folder
+- Disable the module in administration panel and delete the module folder
 
-License
--------
+## License
 
 Licensing of the software product depends on the shop edition used. The software for OXID eShop Community Edition
 is published under the GNU General Public License v3. You may distribute and/or modify this software according to
