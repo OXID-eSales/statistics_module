@@ -166,7 +166,7 @@ class OeStatistics_Report_Top_Clicked_Categories extends OeStatistics_Report_Bas
         $graph->xaxis->setTickLabels($aDataY);
 
         // Set title and subtitle
-        $graph->title->set("Suchwörter");
+        $graph->title->set("SuchwÃ¶rter");
 
         // Use built in font
         $graph->title->setFont(FF_FONT1, FS_BOLD);

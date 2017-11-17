@@ -22,7 +22,7 @@
 // RESOURCE IDENTIFIER = STRING
 // -------------------------------
 $aLang = array(
-    'charset'                                     => 'ISO-8859-15',
+    'charset'                                     => 'UTF-8',
     'SHOP_MODULE_GROUP_oestatistics'              => 'Einstellungen',
-    'SHOP_MODULE_blOEStatisticsLogging'           => 'Mitloggen für Statistik einschalten',
+    'SHOP_MODULE_blOEStatisticsLogging'           => 'Mitloggen fÃ¼r Statistik einschalten',
 );

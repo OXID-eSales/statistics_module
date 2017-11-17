@@ -200,7 +200,7 @@ class OeStatisticsMainTest extends OxidTestCase
         $aReportFiles = array(
             array('filename' => 'oestatistics_report_canceled_orders.php', 'name' => 'Bestellabbrueche'),
             array('filename' => 'oestatistics_report_conversion_rate.php', 'name' => 'Conversion Rate'),
-            array('filename' => 'oestatistics_report_searchstrings.php', 'name' => 'Suchwörter'),
+            array('filename' => 'oestatistics_report_searchstrings.php', 'name' => 'SuchwÃ¶rter'),
             array('filename' => 'oestatistics_report_top_clicked_categories.php', 'name' => 'Top geklickte Kategorien'),
             array('filename' => 'oestatistics_report_top_viewed_products.php', 'name' => 'Top angesehene Artikel'),
             array('filename' => 'oestatistics_report_user_per_group.php', 'name' => 'Kunden nach Benutzergruppen'),
