@@ -41,7 +41,7 @@ class OeStatistics_Report_User_Per_Group extends OeStatistics_Report_Base
            WHERE oxobject2group.oxobjectid = oxuser.oxid AND
            oxobject2group.oxgroupsid = oxgroups.oxid";
 
-        return oxDb::getDb()->getOne($query);
+        return \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->getOne($query);
     }
 
     /**
@@ -49,7 +49,7 @@ class OeStatistics_Report_User_Per_Group extends OeStatistics_Report_Base
      */
     public function user_per_group()
     {
-        $database = oxDb::getDb();
+        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 
         $aDataX = array();
         $aDataY = array();
@@ -64,17 +64,16 @@ class OeStatistics_Report_User_Per_Group extends OeStatistics_Report_Base
              GROUP BY oxobject2group.oxgroupsid
              ORDER BY oxobject2group.oxgroupsid";
 
-        $result = $database->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
-                if ($result->fields[1]) {
-                    $aDataX[] = $result->fields[1];
-                    $aDataY[] = $result->fields[0];
+        $resultSet = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
+                if ($resultSet->getFields()[1]) {
+                    $aDataX[] = $resultSet->getFields()[1];
+                    $aDataY[] = $resultSet->getFields()[0];
                 }
-                $result->moveNext();
+                $resultSet->fetchRow();
             }
         }
-
         header("Content-type: image/png");
 
         // New graph with a drop shadow

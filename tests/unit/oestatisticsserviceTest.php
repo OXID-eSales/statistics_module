@@ -50,14 +50,14 @@ class OeStatisticsServiceTest extends OxidTestCase
         $dNow = time();
         $sInsertFrom = date("Y-m-d H:i:s", mktime(date("H", $dNow), date("i", $dNow), date("s", $dNow), date("m", $dNow), date("d", $dNow) - 186, date("Y", $dNow)));
         $sDeleteFrom = date("Y-m-d H:i:s", mktime(date("H", $dNow), date("i", $dNow), date("s", $dNow), date("m", $dNow), date("d", $dNow) - $iTimeFrame, date("Y", $dNow)));
-        $oDb = oxDb::getDb();
+        $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
         $oDb->execute("insert into oestatisticslog (oxtime) value (" . $oDb->quote($sInsertFrom) . ")");
         $iCnt = $oDb->getOne("select count(*) from oestatisticslog where oxtime < " . $oDb->quote($sDeleteFrom));
 
         $oView = oxNew('OeStatistics_Service');
         $oView->cleanup();
 
-        $oDb = oxDb::getDb();
+        $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
         $iCnt = $oDb->getOne("select count(*) from oestatisticslog where oxtime < " . $oDb->quote($sDeleteFrom));
         $this->assertEquals(0, $iCnt);
     }

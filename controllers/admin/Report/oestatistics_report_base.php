@@ -91,8 +91,8 @@ class OeStatistics_Report_Base extends oxAdminView
         $config = $this->getConfig();
 
         // initializing one week before current..
-        $from = oxRegistry::get("oxUtilsDate")->getWeekNumber($config->getConfigParam('iFirstWeekDay'), strtotime(oxRegistry::getConfig()->getRequestParameter("time_from")));
-        $to = oxRegistry::get("oxUtilsDate")->getWeekNumber($config->getConfigParam('iFirstWeekDay'), strtotime(oxRegistry::getConfig()->getRequestParameter("time_to")));
+        $from = \OxidEsales\Eshop\Core\Registry::getUtilsDate()->getWeekNumber($config->getConfigParam('iFirstWeekDay'), strtotime(oxRegistry::getConfig()->getRequestParameter("time_from")));
+        $to = \OxidEsales\Eshop\Core\Registry::getUtilsDate()->getWeekNumber($config->getConfigParam('iFirstWeekDay'), strtotime(oxRegistry::getConfig()->getRequestParameter("time_to")));
 
         return array($from - 1, $to + 1);
     }

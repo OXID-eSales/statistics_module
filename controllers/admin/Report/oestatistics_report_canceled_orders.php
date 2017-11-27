@@ -37,7 +37,7 @@ class OeStatistics_Report_Canceled_Orders extends OeStatistics_Report_Base
      */
     public function drawReport()
     {
-        $database = oxDb::getDb();
+        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 
         $smarty = $this->getSmarty();
         $timeFrom = $database->quote(date("Y-m-d H:i:s", strtotime($smarty->_tpl_vars['time_from'])));
@@ -91,11 +91,11 @@ class OeStatistics_Report_Canceled_Orders extends OeStatistics_Report_Base
     protected function _collectSessions($query)
     {
         $order = array();
-        $result = oxDb::getDb()->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
-                $order[$result->fields[1]] = $result->fields[0];
-                $result->moveNext();
+        $resultSet = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
+                $order[$resultSet->getFields()[1]] = $resultSet->getFields()[0];
+                $resultSet->fetchRow();
             }
         }
 
@@ -115,20 +115,20 @@ class OeStatistics_Report_Canceled_Orders extends OeStatistics_Report_Base
     protected function _collectOrderSessions($query, $orders, &$data, $month = true)
     {
         $orderSessions = array();
-        $result = oxDb::getDb()->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
+        $resultSet = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
             $iFirstWeekDay = $this->getConfig()->getConfigParam('iFirstWeekDay');
-            while (!$result->EOF) {
-                if (!isset($orders[$result->fields[1]])) {
-                    $orderSessions[$result->fields[1]] = 1;
-                    $key = strtotime($result->fields[0]);
-                    $utilsData = oxRegistry::get("oxUtilsDate");
+            while (!$resultSet->EOF) {
+                if (!isset($orders[$resultSet->getFields()[1]])) {
+                    $orderSessions[$resultSet->getFields()[1]] = 1;
+                    $key = strtotime($resultSet->getFields()[0]);
+                    $utilsData = \OxidEsales\Eshop\Core\Registry::getUtilsDate();
                     $key = $month ? date("m/Y", $key) : $utilsData->getWeekNumber($iFirstWeekDay, $key);
                     if (isset($data[$key])) {
                         $data[$key]++;
                     }
                 }
-                $result->moveNext();
+                $resultSet->fetchRow();
             }
         }
 
@@ -149,19 +149,19 @@ class OeStatistics_Report_Canceled_Orders extends OeStatistics_Report_Base
     protected function _collectPaymentSessions($query, $orders, $orderSessions, &$dataToFill, $month = true)
     {
         $paymentSessions = array();
-        $result = oxDb::getDb()->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
+        $resultSet = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
             $iFirstWeekDay = $this->getConfig()->getConfigParam('iFirstWeekDay');
-            while (!$result->EOF) {
-                if (!isset($orders[$result->fields[1]]) && !isset($orderSessions[$result->fields[1]])) {
-                    $paymentSessions[$result->fields[1]] = 1;
-                    $key = strtotime($result->fields[0]);
-                    $key = $month ? date("m/Y", $key) : oxRegistry::get("oxUtilsDate")->getWeekNumber($iFirstWeekDay, $key);
+            while (!$resultSet->EOF) {
+                if (!isset($orders[$resultSet->getFields()[1]]) && !isset($orderSessions[$resultSet->getFields()[1]])) {
+                    $paymentSessions[$resultSet->getFields()[1]] = 1;
+                    $key = strtotime($resultSet->getFields()[0]);
+                    $key = $month ? date("m/Y", $key) : \OxidEsales\Eshop\Core\Registry::getUtilsDate()->getWeekNumber($iFirstWeekDay, $key);
                     if (isset($dataToFill[$key])) {
                         $dataToFill[$key]++;
                     }
                 }
-                $result->moveNext();
+                $resultSet->fetchRow();
             }
         }
 
@@ -183,19 +183,19 @@ class OeStatistics_Report_Canceled_Orders extends OeStatistics_Report_Base
     protected function _collectUserSessionsForVisitorMonth($query, $orders, $orderSessions, $paymentSessions, &$dataToFill, $month = true)
     {
         $userSessions = array();
-        $result = oxDb::getDb()->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
+        $resultSet = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
             $iFirstWeekDay = $this->getConfig()->getConfigParam('iFirstWeekDay');
-            while (!$result->EOF) {
-                if (!isset($orders[$result->fields[1]]) && !isset($paymentSessions[$result->fields[1]]) && !isset($orderSessions[$result->fields[1]])) {
-                    $userSessions[$result->fields[1]] = 1;
-                    $sKey = strtotime($result->fields[0]);
-                    $sKey = $month ? date("m/Y", $sKey) : oxRegistry::get("oxUtilsDate")->getWeekNumber($iFirstWeekDay, $sKey);
+            while (!$resultSet->EOF) {
+                if (!isset($orders[$resultSet->getFields()[1]]) && !isset($paymentSessions[$resultSet->getFields()[1]]) && !isset($orderSessions[$resultSet->getFields()[1]])) {
+                    $userSessions[$resultSet->getFields()[1]] = 1;
+                    $sKey = strtotime($resultSet->getFields()[0]);
+                    $sKey = $month ? date("m/Y", $sKey) : \OxidEsales\Eshop\Core\Registry::getUtilsDate()->getWeekNumber($iFirstWeekDay, $sKey);
                     if (isset($dataToFill[$sKey])) {
                         $dataToFill[$sKey]++;
                     }
                 }
-                $result->moveNext();
+                $resultSet->fetchRow();
             }
         }
 
@@ -215,18 +215,18 @@ class OeStatistics_Report_Canceled_Orders extends OeStatistics_Report_Base
      */
     protected function _collectToBasketSessions($query, $orders, $ordersSessions, $paymentSessions, $userSessions, &$dataToFill, $month = true)
     {
-        $result = oxDb::getDb()->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
+        $resultSet = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
             $iFirstWeekDay = $this->getConfig()->getConfigParam('iFirstWeekDay');
-            while (!$result->EOF) {
-                if (!$orders[$result->fields[1]] && !isset($paymentSessions[$result->fields[1]]) && !isset($userSessions[$result->fields[1]]) && !isset($ordersSessions[$result->fields[1]])) {
-                    $sKey = strtotime($result->fields[0]);
-                    $sKey = $month ? date("m/Y", $sKey) : oxRegistry::get("oxUtilsDate")->getWeekNumber($iFirstWeekDay, $sKey);
+            while (!$resultSet->EOF) {
+                if (!$orders[$resultSet->getFields()[1]] && !isset($paymentSessions[$resultSet->getFields()[1]]) && !isset($userSessions[$resultSet->getFields()[1]]) && !isset($ordersSessions[$resultSet->getFields()[1]])) {
+                    $sKey = strtotime($resultSet->getFields()[0]);
+                    $sKey = $month ? date("m/Y", $sKey) : \OxidEsales\Eshop\Core\Registry::getUtilsDate()->getWeekNumber($iFirstWeekDay, $sKey);
                     if (isset($dataToFill[$sKey])) {
                         $dataToFill[$sKey]++;
                     }
                 }
-                $result->moveNext();
+                $resultSet->fetchRow();
             }
         }
     }
@@ -240,16 +240,16 @@ class OeStatistics_Report_Canceled_Orders extends OeStatistics_Report_Base
      */
     protected function _collectOrdersMade($query, &$dataToFill, $month = true)
     {
-        $result = oxDb::getDb()->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
+        $resultSet = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
             $iFirstWeekDay = $this->getConfig()->getConfigParam('iFirstWeekDay');
-            while (!$result->EOF) {
-                $sKey = strtotime($result->fields[0]);
-                $sKey = $month ? date("m/Y", $sKey) : oxRegistry::get("oxUtilsDate")->getWeekNumber($iFirstWeekDay, $sKey);
+            while (!$resultSet->EOF) {
+                $sKey = strtotime($resultSet->getFields()[0]);
+                $sKey = $month ? date("m/Y", $sKey) : \OxidEsales\Eshop\Core\Registry::getUtilsDate()->getWeekNumber($iFirstWeekDay, $sKey);
                 if (isset($dataToFill[$sKey])) {
                     $dataToFill[$sKey]++;
                 }
-                $result->moveNext();
+                $resultSet->fetchRow();
             }
         }
     }
@@ -262,14 +262,14 @@ class OeStatistics_Report_Canceled_Orders extends OeStatistics_Report_Base
      */
     protected function _collectOrdersMadeForVisitorWeek($query, &$dataToFill)
     {
-        $result = oxDb::getDb()->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
-                $sKey = oxRegistry::get("oxUtilsDate")->getWeekNumber(oxConfig::getConfigParam('iFirstWeekDay'), strtotime($result->fields[0]));
+        $resultSet = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
+                $sKey = \OxidEsales\Eshop\Core\Registry::getUtilsDate()->getWeekNumber(oxConfig::getConfigParam('iFirstWeekDay'), strtotime($resultSet->getFields()[0]));
                 if (isset($dataToFill[$sKey])) {
                     $dataToFill[$sKey]++;
                 }
-                $result->moveNext();
+                $resultSet->fetchRow();
             }
         }
     }
@@ -279,7 +279,7 @@ class OeStatistics_Report_Canceled_Orders extends OeStatistics_Report_Base
      */
     public function visitor_month()
     {
-        $database = oxDb::getDb();
+        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 
         $dTimeTo = strtotime(oxRegistry::getConfig()->getRequestParameter("time_to"));
         $sTimeTo = $database->quote(date("Y-m-d H:i:s", $dTimeTo));
@@ -293,12 +293,11 @@ class OeStatistics_Report_Canceled_Orders extends OeStatistics_Report_Base
             $temp[date("m/Y", mktime(23, 59, 59, date("m", $dTimeFrom) + $i, date("d", $dTimeFrom), date("Y", $dTimeFrom)))] = 0;
         }
 
-        $result = $database->execute($query);
-
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
-                $temp[date("m/Y", strtotime($result->fields[0]))]++;
-                $result->moveNext();
+        $resultSet = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
+                $temp[date("m/Y", strtotime($resultSet->getFields()[0]))]++;
+                $resultSet->fetchRow();
             }
         }
 
@@ -379,7 +378,7 @@ class OeStatistics_Report_Canceled_Orders extends OeStatistics_Report_Base
     public function visitor_week()
     {
         $config = $this->getConfig();
-        $database = oxDb::getDb();
+        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 
         $aDataX = array();
         $aDataX2 = array();
@@ -395,12 +394,12 @@ class OeStatistics_Report_Canceled_Orders extends OeStatistics_Report_Base
         $query = "select oxtime, count(*) as nrof from oestatisticslog where oxtime >= $sTimeFrom and oxtime <= $sTimeTo group by oxsessid order by oxtime";
 
         $aTemp = array();
-        $result = $database->execute($query);
+        $resultSet = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($query);
 
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
-                $aTemp[oxRegistry::get("oxUtilsDate")->getWeekNumber($config->getConfigParam('iFirstWeekDay'), strtotime($result->fields[0]))]++;
-                $result->moveNext();
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
+                $aTemp[\OxidEsales\Eshop\Core\Registry::getUtilsDate()->getWeekNumber($config->getConfigParam('iFirstWeekDay'), strtotime($resultSet->getFields()[0]))]++;
+                $resultSet->fetchRow();
             }
         }
 

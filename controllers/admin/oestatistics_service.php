@@ -39,7 +39,7 @@ class OeStatistics_Service extends oxAdminDetails
     {
         parent::render();
         $query = "select count(*) from oestatisticslog where oxshopid = '" . $this->getConfig()->getShopId() . "'";
-        $this->_aViewData['iLogCount'] = oxDb::getDb()->getOne($query, false, false);
+        $this->_aViewData['iLogCount'] = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->getOne($query, false, false);
 
         return "oestatistics_service.tpl";
     }
@@ -61,7 +61,7 @@ class OeStatistics_Service extends oxAdminDetails
         );
         $deleteFrom = date("Y-m-d H:i:s", $iTimestamp);
 
-        $database = oxDb::getDb();
+        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
         $database->Execute("delete from oestatisticslog where oxtime < " . $database->quote($deleteFrom));
     }
 }

@@ -52,7 +52,7 @@ class oeStatisticsModule extends oxModule
     protected static function _dbEvent($sSqlFile, $failureError = 'Operation failed: ')
     {
         try {
-            $database  = oxDb::getDb();
+            $database  = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
             $queries = file_get_contents(dirname(__FILE__) . '/../docs/' . (string) $sSqlFile);
             $queriesSplit = (array) explode(';', $queries);
 

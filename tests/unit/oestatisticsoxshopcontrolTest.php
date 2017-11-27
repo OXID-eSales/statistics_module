@@ -29,7 +29,7 @@ class OeStatisticsOxShopControlTest extends OxidTestCase
      */
     public function testLog()
     {
-        $oDb = oxDb::getDb();
+        $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 
         $this->setSessionParam("actshop", "testshopid");
         $this->setSessionParam("usr", "testusr");
