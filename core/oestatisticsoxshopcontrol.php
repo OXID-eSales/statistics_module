@@ -57,7 +57,7 @@ class oeStatisticsOxShopControl extends oeStatisticsOxShopControl_parent
      */
     protected function oeStatisticsLog($class, $function)
     {
-        $database = oxDb::getDb();
+        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
         $config = $this->getConfig();
         $session = $this->getSession();
 

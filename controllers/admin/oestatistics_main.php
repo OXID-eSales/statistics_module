@@ -140,9 +140,9 @@ class OeStatistics_Main extends oxAdminDetails
         $timeFrom = oxRegistry::getConfig()->getRequestParameter("time_from");
         $timeTo = oxRegistry::getConfig()->getRequestParameter("time_to");
         if ($timeFrom && $timeTo) {
-            $timeFrom = oxRegistry::get("oxUtilsDate")->formatDBDate($timeFrom, true);
+            $timeFrom = \OxidEsales\Eshop\Core\Registry::getUtilsDate()->formatDBDate($timeFrom, true);
             $timeFrom = date("Y-m-d", strtotime($timeFrom));
-            $timeTo = oxRegistry::get("oxUtilsDate")->formatDBDate($timeTo, true);
+            $timeTo = \OxidEsales\Eshop\Core\Registry::getUtilsDate()->formatDBDate($timeTo, true);
             $timeTo = date("Y-m-d", strtotime($timeTo));
         } else {
             $days = oxRegistry::getConfig()->getRequestParameter("timeframe");
@@ -151,7 +151,7 @@ class OeStatistics_Main extends oxAdminDetails
             $timeTo = date("Y-m-d", time());
         }
 
-        $smarty = oxRegistry::get("oxUtilsView")->getSmarty();
+        $smarty = \OxidEsales\Eshop\Core\Registry::getUtilsView()->getSmarty();
         $smarty->assign("time_from", $timeFrom . " 23:59:59");
         $smarty->assign("time_to", $timeTo . " 23:59:59");
         $smarty->assign("oViewConf", $this->_aViewData["oViewConf"]);

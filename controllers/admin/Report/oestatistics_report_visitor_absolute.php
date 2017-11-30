@@ -37,7 +37,7 @@ class OeStatistics_Report_Visitor_Absolute extends OeStatistics_Report_Base
      */
     public function drawReport()
     {
-        $database = oxDb::getDb();
+        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 
         $oSmarty = $this->getSmarty();
         $sTimeFrom = $database->quote(date("Y-m-d H:i:s", strtotime($oSmarty->_tpl_vars['time_from'])));
@@ -63,7 +63,7 @@ class OeStatistics_Report_Visitor_Absolute extends OeStatistics_Report_Base
      */
     public function visitor_month()
     {
-        $database = oxDb::getDb();
+        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 
         $aDataX = array();
         $aDataY = array();
@@ -80,11 +80,11 @@ class OeStatistics_Report_Visitor_Absolute extends OeStatistics_Report_Base
             $aTemp[date("m/Y", mktime(23, 59, 59, date("m", $dTimeFrom) + $i, date("d", $dTimeFrom), date("Y", $dTimeFrom)))] = 0;
         }
 
-        $result = $database->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
-                $aTemp[date("m/Y", strtotime($result->fields[0]))]++;
-                $result->moveNext();
+        $resultSet = $database->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
+                $aTemp[date("m/Y", strtotime($resultSet->getFields()[0]))]++;
+                $resultSet->fetchRow();
             }
         }
 
@@ -98,11 +98,11 @@ class OeStatistics_Report_Visitor_Absolute extends OeStatistics_Report_Base
         // buyer
         $query = "select oxorderdate from oxorder where oxorderdate >= $sTimeFrom and oxorderdate <= $sTimeTo order by oxorderdate";
         $aTemp = array();
-        $result = $database->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
-                $aTemp[date("m/Y", strtotime($result->fields[0]))]++;
-                $result->moveNext();
+        $resultSet = $database->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
+                $aTemp[date("m/Y", strtotime($resultSet->getFields()[0]))]++;
+                $resultSet->fetchRow();
             }
         }
 
@@ -113,11 +113,11 @@ class OeStatistics_Report_Visitor_Absolute extends OeStatistics_Report_Base
         // newcustomer
         $query = "select oxcreate from oxuser where oxcreate >= $sTimeFrom and oxcreate <= $sTimeTo order by oxcreate";
         $aTemp = array();
-        $result = $database->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
-                $aTemp[date("m/Y", strtotime($result->fields[0]))]++;
-                $result->moveNext();
+        $resultSet = $database->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
+                $aTemp[date("m/Y", strtotime($resultSet->getFields()[0]))]++;
+                $resultSet->fetchRow();
             }
         }
 
@@ -196,7 +196,7 @@ class OeStatistics_Report_Visitor_Absolute extends OeStatistics_Report_Base
     public function visitor_week()
     {
         $config = $this->getConfig();
-        $database = oxDb::getDb();
+        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 
         $aDataX = array();
         $aDataY = array();
@@ -206,12 +206,12 @@ class OeStatistics_Report_Visitor_Absolute extends OeStatistics_Report_Base
 
         $query = "select oxtime, count(*) as nrof from oestatisticslog where oxtime >= $sTimeFrom and oxtime <= $sTimeTo group by oxsessid order by oxtime";
         $aTemp = array();
-        $result = $database->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
+        $resultSet = $database->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
                 $firstWeekDay = $config->getConfigParam('iFirstWeekDay');
-                $aTemp[oxRegistry::get("oxUtilsDate")->getWeekNumber($firstWeekDay, strtotime($result->fields[0]))]++;
-                $result->moveNext();
+                $aTemp[\OxidEsales\Eshop\Core\Registry::getUtilsDate()->getWeekNumber($firstWeekDay, strtotime($resultSet->getFields()[0]))]++;
+                $resultSet->fetchRow();
             }
         }
 
@@ -234,12 +234,12 @@ class OeStatistics_Report_Visitor_Absolute extends OeStatistics_Report_Base
         // buyer
         $query = "select oxorderdate from oxorder where oxorderdate >= $sTimeFrom and oxorderdate <= $sTimeTo order by oxorderdate";
         $aTemp = array();
-        $result = $database->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
+        $resultSet = $database->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
                 $firstWeekDay = $config->getConfigParam('iFirstWeekDay');
-                $aTemp[oxRegistry::get("oxUtilsDate")->getWeekNumber($firstWeekDay, strtotime($result->fields[0]))]++;
-                $result->moveNext();
+                $aTemp[\OxidEsales\Eshop\Core\Registry::getUtilsDate()->getWeekNumber($firstWeekDay, strtotime($resultSet->getFields()[0]))]++;
+                $resultSet->fetchRow();
             }
         }
 
@@ -250,15 +250,15 @@ class OeStatistics_Report_Visitor_Absolute extends OeStatistics_Report_Base
         // newcustomer
         $query = "select oxcreate from oxuser where oxcreate >= $sTimeFrom and oxcreate <= $sTimeTo order by oxcreate";
         $aTemp = array();
-        $result = $database->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
+        $resultSet = $database->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
                 $firstWeekDay = $config->getConfigParam('iFirstWeekDay');
-                $aTemp[oxRegistry::get("oxUtilsDate")->getWeekNumber($firstWeekDay, strtotime($result->fields[0]))]++;
-                $result->moveNext();
+                $aTemp[\OxidEsales\Eshop\Core\Registry::getUtilsDate()->getWeekNumber($firstWeekDay, strtotime($resultSet->getFields()[0]))]++;
+                $resultSet->fetchRow();
             }
         }
-
+        
         foreach ($aTemp as $key => $value) {
             $aDataX3[$key] = $value;
         }

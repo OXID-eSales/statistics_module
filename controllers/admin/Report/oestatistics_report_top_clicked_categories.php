@@ -38,7 +38,7 @@ class OeStatistics_Report_Top_Clicked_Categories extends OeStatistics_Report_Bas
      */
     public function render()
     {
-        $database = oxDb::getDb();
+        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 
         $aDataX = array();
         $aDataY = array();
@@ -51,14 +51,14 @@ class OeStatistics_Report_Top_Clicked_Categories extends OeStatistics_Report_Bas
                 "where oestatisticslog.oxclass = 'alist' and oestatisticslog.oxcnid = oxcategories.oxid  " .
                 "and oestatisticslog.oxtime >= $sTimeFrom and oestatisticslog.oxtime <= $sTimeTo " .
                 "group by oxcategories.oxtitle order by nrof desc limit 0, 25";
-        $result = $database->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
-                if ($result->fields[1]) {
-                    $aDataX[] = $result->fields[0];
-                    $aDataY[] = $result->fields[1];
+        $resultSet = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
+                if ($resultSet->getFields()[1]) {
+                    $aDataX[] = $resultSet->getFields()[0];
+                    $aDataY[] = $resultSet->getFields()[1];
                 }
-                $result->moveNext();
+                $resultSet->fetchRow();
             }
         }
         $iMax = 0;
@@ -116,7 +116,7 @@ class OeStatistics_Report_Top_Clicked_Categories extends OeStatistics_Report_Bas
      */
     public function graph1()
     {
-        $database = oxDb::getDb();
+        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 
         $aDataX = array();
         $aDataY = array();
@@ -128,17 +128,16 @@ class OeStatistics_Report_Top_Clicked_Categories extends OeStatistics_Report_Bas
 
         $query = "select count(*) as nrof, oxparameter from oestatisticslog where oxclass = 'search' " .
                 "and oxtime >= $sTimeFrom and oxtime <= $sTimeTo group by oxparameter order by nrof desc";
-        $result = $database->execute($query);
-        if ($result != false && $result->recordCount() > 0) {
-            while (!$result->EOF) {
-                if ($result->fields[1]) {
-                    $aDataX[] = $result->fields[0];
-                    $aDataY[] = $result->fields[1];
+        $resultSet = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($query);
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
+                if ($resultSet->getFields()[1]) {
+                    $aDataX[] = $resultSet->getFields()[0];
+                    $aDataY[] = $resultSet->getFields()[1];
                 }
-                $result->moveNext();
+                $resultSet->fetchRow();
             }
         }
-
         header("Content-type: image/png");
 
         // New graph with a drop shadow
@@ -166,7 +165,7 @@ class OeStatistics_Report_Top_Clicked_Categories extends OeStatistics_Report_Bas
         $graph->xaxis->setTickLabels($aDataY);
 
         // Set title and subtitle
-        $graph->title->set("Suchwörter");
+        $graph->title->set("SuchwÃ¶rter");
 
         // Use built in font
         $graph->title->setFont(FF_FONT1, FS_BOLD);

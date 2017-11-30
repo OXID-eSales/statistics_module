@@ -51,7 +51,7 @@ class OeStatisticsManagerTest extends OxidTestCase
 
     public function testOeStatisticsSaveAndLoad()
     {
-        $value = 'agent??????für';
+        $value = 'agent??????fÃ¼r';
         $fields = array('oestatistics__oxtitle', 'oestatistics__oxvalue');
 
         $statistics = oxNew('oeStatisticsManager');
