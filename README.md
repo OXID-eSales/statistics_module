@@ -18,8 +18,7 @@ In order to install the module via composer, run the following commands in comma
 (where the shop's composer.json file resides).
 
 ```
-composer config repositories.oxid-esales/statistics-module vcs https://github.com/OXIDprojects/statistics-module
-composer require oxid-esales/statistics-module:dev-master
+composer require oxid-projects/statistics-module
 ```
 
 ### Module installation via repository cloning
