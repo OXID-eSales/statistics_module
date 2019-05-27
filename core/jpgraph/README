@@ -1,20 +1,22 @@
-README FOR JPGRAPH
-==================
+README FOR JPGRAPH 4.2.6
+=========================
 
-This package contains the JpGraph PHP library Pro version 2.5p
+This package contains the JpGraph PHP library version 4.2.6
 
-The library is Copyright (C) 2000-2009 Aditus Consulting and
-released under the JpGraph Professional License for commercial use. 
+The library is Copyright (C) 2000-2010 Asial Corporatoin and
+released under dual license QPL 1.0 for open source and educational
+use and JpGraph Professional License for commercial use. 
 
-* --------------------------------------------------------------------
-* PHP4 IS NOT SUPPORTED IN THIS 2.x SERIES
-* --------------------------------------------------------------------
-			
+Please see full license details at 
+http://jpgraph.net/pro/
+http://jpgraph.net/download/
+
+
 Requirements:
 -------------
 Miminum:
 * PHP 5.1.0 or higher 
-* GD 2.28 or higher
+* GD 2.0.28 or higher
 Note: Earlier versions might work but is unsupported.
 
 Recommended:
@@ -36,9 +38,6 @@ Installation
    httpd sever can access them. 
    For a global site installation you should copy the files to 
    somewhere in the PHP search path. 
-   It is recommended that only files in the stripped-src/ directory is
-   copied to a production server since those files will be faster to parse
-   due to the removal of white spaces and comments.
 
 3. Check that the default directory paths in jpg-config.inc.php
    for cache directory and TTF directory suits your installation. 
@@ -53,50 +52,12 @@ Documentation
 -------------
 The installation includes HTML documentation and reference guide for the
 library. The portal page for all documentation is
-<YOUR-INSTALLATION-DIRECTORY>/docportal/index.html
+<YOUR-INSTALLATION-DIRECTORY>/docs/index.html
 
 
-Troubleshooting
----------------
-1. If an empty page is returned back when running an example check
-   the following
+Bug reports and suggestions
+---------------------------
+Should be reported using the contact form at
 
-      i) Make sure output_buffer is disabled in php.ini
-     ii) Increase the maximum memory allowed by PHP (in php.ini) to at least
-         32MB
-    iii) Enable all error messages and notices in php.ini (error_reporting = E_ALL)
+http://jpgraph.net/contact/
 
-   Then try running the example again. Most likely an error message will
-   now be shown that will give further information on what is wrong.
-   For further clarifiction on the casues for the error messages see
-   the FAQ section on the WEB site.
-
-2. If you get an error message about "Illegal scale" make absolutely
-   sure that the Zend PHP4 compatibility is turned off. This is done
-   by setting "zend.ze1_compatibility_mode = Off" in php.ini
-
-2. If you are running IIS and Win2k and get the error "Can't find
-   font' when trying to use TTF fonts then try to change you paths
-   to UNIX style, i.e. "/usr/local/fonts/ttf/". Remember that the
-   path is absolute and not relative to the htdocs catalogue. Some 
-   versions of GD for Windows also need you to set the environment
-   variable GDFONTPATH for GD to find the fonts.
-
-3. If you are using the cache please make sure that you have
-   set the permissions correctly for the cache directory so that
-   Apache/PHP can write to that directory.
-
-4. Some windows installations seems to have a problem with a PHP
-   script ending in a newline (This newline seems to be sent to the
-   browser and will cause a Header already sent error). 
-   If you have this problem try remove all trailing newlines in the
-   jpgraph* files 
-
-
-Defect reports and new feature requests
----------------------------------------
-Should be reported using the issue tracker available at
-
-http://www.aditus.nu/bugtraq
-
-<EOF>

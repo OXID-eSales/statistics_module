@@ -3,13 +3,13 @@
  // File:  		 JPGRAPH_LINE.PHP
  // Description: Line plot extension for JpGraph
  // Created:  	 2001-01-08
- // Ver:  		 $Id$
+ // Ver:  		 $Id: jpgraph_line.php 1921 2009-12-11 11:46:39Z ljp $
  //
- // Copyright (c) Aditus Consulting. All rights reserved.
+ // Copyright (c) Asial Corporation. All rights reserved.
  //========================================================================
  */
 
-require_once('jpgraph_plotmark.inc.php');
+require_once ('jpgraph_plotmark.inc.php');
 
 // constants for the (filled) area
 DEFINE("LP_AREA_FILLED", true);
@@ -35,7 +35,7 @@ class LinePlot extends Plot{
 
     //---------------
     // CONSTRUCTOR
-    function LinePlot($datay,$datax=false) {
+    function __construct($datay,$datax=false) {
         parent::__construct($datay,$datax);
         $this->mark = new PlotMark() ;
         $this->color = ColorFactory::getColor();
@@ -381,7 +381,7 @@ class LinePlot extends Plot{
                 // Remove first and last coordinate before drawing the line
                 // sine we otherwise get the vertical start and end lines which
                 // doesn't look appropriate
-                $img->Polygon(array_slice( array_slice($cord,2), count($cord)-4 ));
+                $img->Polygon(array_slice($cord,2,count($cord)-4));
             }
         }
 

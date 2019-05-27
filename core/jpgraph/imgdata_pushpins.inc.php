@@ -3,9 +3,9 @@
 // File: IMGDATA_PUSHPINS.INC
 // Description: Base64 encoded images for pushpins
 // Created:  2003-03-20
-// Ver:  $Id$
+// Ver:  $Id: imgdata_pushpins.inc.php 1106 2009-02-22 20:16:35Z ljp $
 //
-// Copyright (c) Aditus Consulting. All rights reserved.
+// Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
 class ImgData_PushPins extends ImgData {
