@@ -5,7 +5,7 @@
 // Created:     2009-03-08
 // Ver:         $Id: jpgraph_contour.php 1870 2009-09-29 04:24:18Z ljp $
 //
-// Copyright (c) Aditus Consulting. All rights reserved.
+// Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 */
 require_once('jpgraph_meshinterpolate.inc.php');
@@ -266,7 +266,7 @@ class Contour {
     /**
      * @param $aFlg
      * @param $aBW
-     * @return null
+     * @return unknown_type
      */
     function UseHighContrastColor($aFlg=true,$aBW=false) {
         $this->highcontrast = $aFlg;
@@ -471,7 +471,7 @@ class ContourPlot extends Plot {
 
     /**
      * @param $aFlg true if the legend should start with the lowest isobar on top
-     * @return null
+     * @return unknown_type
      */
     function Invertlegend($aFlg=true) {
         $this->invertLegend = $aFlg;
