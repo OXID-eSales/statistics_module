@@ -39,6 +39,16 @@ class oeStatisticsModule extends oxModule
     {
         return self::_dbEvent('install.sql', 'Error activating module: ');
     }
+    
+    /**
+     * Module deactivation script.
+     *
+     * @return bool
+     */
+    public static function onDeactivate()
+    {
+        return self::_dbEvent('uninstall.sql', 'Error deactivating module: ');
+    }
 
     /**
      * Install/uninstall event.
